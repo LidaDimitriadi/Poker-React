@@ -44,7 +44,8 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 
-//krataei ola ta states
+//REDUCER: pairnei to prohgoumeno state kai mia action kai epistrefei to kainourio state
+//pure function
 const ACTION_HANDLERS = {
   [COUNTER_INCREMENT]: (state, action) => state + action.payload
 }

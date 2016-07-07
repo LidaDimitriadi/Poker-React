@@ -13,7 +13,6 @@ export const createRoutes = (store) => ({
   indexRoute: Home,
   childRoutes: [
     CounterRoute(store),
-    //me store den etrexe gt?
     LidaRoute
   ]
 })
