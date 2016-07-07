@@ -9,10 +9,12 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
+          //mesa sto CounterContainer fortwnw thn template tou counter
       const Counter = require('./containers/CounterContainer').default
       const reducer = require('./modules/counter').default
 
       /*  Add the reducer to the store on key 'counter'  */
+      //gia na fainetai sto redux
       injectReducer(store, { key: 'counter', reducer })
 
       /*  Return getComponent   */

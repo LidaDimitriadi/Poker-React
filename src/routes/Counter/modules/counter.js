@@ -1,6 +1,7 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
+//tupos twn actions
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
 
 // ------------------------------------
@@ -21,6 +22,7 @@ export function increment (value = 1) {
     you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
     reducer take care of this logic.  */
 
+//ousiastika epistrefei thn increment me payload th state tou counter
 export const doubleAsync = () => {
   return (dispatch, getState) => {
     return new Promise((resolve) => {
@@ -32,6 +34,7 @@ export const doubleAsync = () => {
   }
 }
 
+//kai oi 2 actions einai tupou 'COUNTER_INCREMENT'
 export const actions = {
   increment,
   doubleAsync
@@ -40,6 +43,8 @@ export const actions = {
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
+
+//krataei ola ta states
 const ACTION_HANDLERS = {
   [COUNTER_INCREMENT]: (state, action) => state + action.payload
 }

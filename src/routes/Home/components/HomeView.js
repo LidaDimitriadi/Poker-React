@@ -7,6 +7,7 @@ export const HomeView = () => (
     <h4>Welcome!</h4>
     <img
       alt='This is a duck, because Redux!'
+      //code in js within {}:
       className={classes.duck}
       src={DuckImage} />
   </div>
