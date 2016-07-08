@@ -1,4 +1,4 @@
-import LidaRoute from './components/LidaRoute'
+import LidaRoute from './components/LidaRoute';
 
 export default {
   path: '/lida',

@@ -7,3 +7,5 @@ export const MyComp = () => (
   Experimenting components</div>
 </div>
 );
+
+export default MyComp
