@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Styles for CSS Playing Cards
  *
  * @author   Anika Henke <anika@selfthinker.org>
@@ -214,7 +214,7 @@
     content: "\2666\00A0\00A0\00A0\2666 \A\2666\00A0\00A0\00A0\2666 \A\2666\00A0\00A0\00A0\2666";
 }
 .playingCards .card.rank-7.diams .suit:after {
-    content: "\2666\00A0\00A0\2666 \A\2666\00A0\2666\00A0\2666 \A\2666\00A0\00A0\2666";
+    content: "\2666\00A000A0\2666 \A\2666\00A0\2666\00A0\2666 \A\2666\00A0\00A0\2666";
 }
 .playingCards .card.rank-8.diams .suit:after {
     content: "\2666\00A0\2666\00A0\2666 \A\2666\00A0\00A0\2666 \A\2666\00A0\2666\00A0\2666";
@@ -257,7 +257,7 @@
 
 /* spades */
 .playingCards .card.rank-2.spades .suit:after {
-    content: "\2660 \A\A\2660";
+    content: "\2660 \A\A \2660";
 }
 .playingCards .card.rank-3.spades .suit:after {
     content: "\2660 \A\2660 \A\2660";
@@ -272,7 +272,7 @@
     content: "\2660\00A0\00A0\00A0\2660 \A\2660\00A0\00A0\00A0\2660 \A\2660\00A0\00A0\00A0\2660";
 }
 .playingCards .card.rank-7.spades .suit:after {
-    content: "\2660\00A0\00A0\2660 \A\2660\00A0\2660\00A0\2660 \A\2660\00A0\00A0\2660";
+    content: '\2660\00A0\00A0\2660 \A\2660\00A0\2660\00A0\2660 \A\2660\00A0\00A0\2660';
 }
 .playingCards .card.rank-8.spades .suit:after {
     content: "\2660\00A0\2660\00A0\2660 \A\2660\00A0\00A0\2660 \A\2660\00A0\2660\00A0\2660";
