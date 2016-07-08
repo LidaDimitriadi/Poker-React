@@ -1,3 +1,3 @@
-import MyComp from './MyComp'
+import { MyComp } from './MyComp'
 
 export default MyComp
