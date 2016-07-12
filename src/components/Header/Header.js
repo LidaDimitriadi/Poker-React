@@ -13,8 +13,8 @@ export const Header = () => (
       Counter
     </Link>
     {' · '}
-    <Link to='/lida' activeClassName={classes.activeRoute}>
-      LidaRoute
+    <Link to='/poker' activeClassName={classes.activeRoute}>
+      Poker
     </Link>
   </div>
 )
