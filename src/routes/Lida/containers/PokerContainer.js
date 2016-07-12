@@ -20,5 +20,5 @@ const mapStateToProps = (state) => ({
   hand: hand
 });
 
-//pws pernaw props etsi????
+
 export default connect(mapStateToProps, mapActionCreators)(Poker);
