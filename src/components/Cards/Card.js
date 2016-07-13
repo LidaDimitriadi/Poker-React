@@ -10,5 +10,10 @@ export const Card = ({ rank, suit }) => (
   </span>
  );
 
+Card.PropTypes = {
+  rank: React.PropTypes.char,
+  weight: React.PropTypes.number,
+  suit: React.PropTypes.string
+};
 
 export default Card;

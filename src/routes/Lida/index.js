@@ -1,13 +1,4 @@
-//import PokerView from './components/PokerView';
-
-///export default {
-//  path: '/poker',
-//  component: PokerView
-//}
-
-
 import { injectReducer } from '../../store/reducers'
-console.log('in route poker index');
 export default (store) => ({
   path: '/poker',
   /*  Async getComponent is only invoked when route matches   */
