@@ -11,6 +11,42 @@
 /* card itself
 ********************************************************************/
 
+/*****************************************************
+My styles
+*******************************************************/
+
+.containerClass {
+  background-color: green;
+  border: solid black 1px;
+  border-radius: 5px;
+  max-width: 100%;
+  min-height: 500px;
+}
+
+.handClass {
+  margin: 50px;
+}
+
+.ratingClass {
+  text-align: center;
+  font-weight: bold;
+  width: inherit;
+  margin: 10px;
+}
+
+.chosenCard {
+  display: inline-flex;
+  border: solid 5px red;
+}
+
+.normalCard {
+  display: inline-flex;
+}
+
+/*****************************************************
+Cards.css
+*******************************************************/
+
 .playingCards .card {
     display: inline-block;
     width: 3.3em;

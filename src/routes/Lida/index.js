@@ -14,12 +14,12 @@ export default (store) => ({
 
       /*  Add the reducer to the store on key 'counter'  */
       //gia na fainetai sto redux
-      injectReducer(store, { key: 'deal', reducer })
+      injectReducer(store, { key: 'game', reducer })
 
       /*  Return getComponent   */
       cb(null, Poker)
 
     /* Webpack named bundle   */
-  }, 'deal')
+  }, 'game')
   }
 })
