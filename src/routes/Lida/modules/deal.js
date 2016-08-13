@@ -81,32 +81,55 @@ const deal = function(num, hand, deck, chosenCards) {
     let handToReturn = _.pullAll(hand.cards, chosenCards);
     return new PokerHand(_.concat(handToReturn, cardsToAdd));
   }
-};
+}
 
-const addCard = function(chosenCards, hand) {
-  console.log("in addCard!");
-  console.log(hand);
-  var card = _.difference(hand, chosenCards);
-  console.log(card);
-  /*if(card.chosen) {
-    return chosenCards.concat([card]);
+const addCardToChosen = function(chosenCards, hand, id) {
+  //an to brei to diagrafei
+  const index = _.findIndex(chosenCards, (x) => (x.key == id));
+  if(index > -1) {
+    return  _.concat(chosenCards.slice(0, index), chosenCards.slice(index+1, chosenCards.length));
   }
   else {
-    return _.filter(chosenCards, {card});
-  }*/
+    if(chosenCards.length == 3) {
+      return chosenCards;
+    }
+    return  _.concat(chosenCards, [_.find(hand.cards, (x) => (x.key == id))]);
+  }
 }
+
+const toggleCardState = function(hand, chosenCards, id) {
+  var index = _.findIndex(hand.cards, (x) => (x.key == id));
+  let newHand = hand;
+  if(chosenCards.length >= 3) {
+    if(hand.cards[index].chosen == false) {
+      return hand;
+    }
+    else {
+      newHand.cards[index].chosen = !newHand.cards[index].chosen;
+      console.log(newHand);
+      return newHand;
+    }
+  }
+  else {
+    newHand.cards[index].chosen = !newHand.cards[index].chosen;
+    console.log(newHand);
+    return newHand;
+  }
+}
+
 
 //===========
 //REDUX STATE
 //===========
 
 
+//ACTIONS
 export const DEAL = 'DEAL';
 export const UPDATE_HAND = 'UPDATE_HAND';
-export const CARD_TO_DISCARD = 'CARD_TO_DISCARD';
+export const CHOSEN_CARD = 'CHOSEN_CARD';
 
 
-//ACTION
+//ACTION CREATORS
 export function handleClick(){
   return {
     type: DEAL
@@ -119,9 +142,10 @@ export function updateHand() {
   }
 };
 
-export function chosenCard() {
+export function chosenCard(id) {
   return {
-    type: CARD_TO_DISCARD
+    type: CHOSEN_CARD,
+    payload: id
   }
 };
 
@@ -136,27 +160,28 @@ const ACTION_HANDLERS = {
                       return {
                         deal: !state.deal,
                         chosenCards: [],
-                        hand: deal(5, null, cards, state.chosenCards),
-                        deck: cards.slice(5, cards.length)
+                        hand: !state.deal ? deal(5, null, state.deck, state.chosenCards) : { cards: []},
+                        deck: state.deck.slice(5, cards.length)
                       };
                     },
   [UPDATE_HAND]: (state, action) => {
                           return {
                             deal: state.deal,
                             chosenCards: [],
-                            hand: deal(state.chosenCards.length, state.hand, cards, state.chosenCards),
-                            deck: cards.slice(state.chosenCards.length, cards.length)
+                            hand: deal(state.chosenCards.length, state.hand, state.deck, state.chosenCards),
+                            deck: state.deck.slice(state.chosenCards.length, cards.length)
                           };
                         },
-  [CARD_TO_DISCARD]: (state, action) => {
+  [CHOSEN_CARD]: (state, action) => {
                               return {
                                 deal: state.deal,
-                                chosenCards: addCard(state.chosenCards, state.hand),
-                                hand: state.hand,
-                                deck: cards
+                                chosenCards: addCardToChosen(state.chosenCards, state.hand, action.payload),
+                                hand: toggleCardState(state.hand, state.chosenCards, action.payload),
+                                deck: state.deck
                               };
-  }
+                        }
 };
+
 
 const initialState = {
   deal: false,
@@ -166,7 +191,6 @@ const initialState = {
 };
 
 export default function counterReducer (state = initialState, action) {
-  console.log("in reducer");
   const handler = ACTION_HANDLERS[action.type];
   return handler ? handler(state, action) : state
 };

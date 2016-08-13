@@ -12,18 +12,13 @@ import Poker from 'components/Cards';
 const mapActionCreators = {
   handleClick: () => handleClick(),
   updateHand: () => updateHand(),
-  chosenCard: () => chosenCard()
+  chosenCard: (id) => chosenCard(id)
 };
-
-
 
 const mapStateToProps = (state) => ({
   game: state.game.deal,
-  updated: state.game.updated,
   hand: state.game.hand,
   deck: state.game.cards,
-  cardsToDiscard: state.game.chosenCards
 });
-
 
 export default connect(mapStateToProps, mapActionCreators)(Poker);
