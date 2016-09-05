@@ -3,16 +3,14 @@ import classNames from 'classnames';
 import styles from './styles/cards.css';
 import className from './className.js';
 
-export const Card = (props) => (
-  <div className={(props.chosen ? styles.chosenCard : styles.normalCard)} onClick={props.chosenCard}>
-      <span className={className.front(props.rank, props.suit)}>
-         <span className={styles.rank}>{props.rank}</span>
-          <span className={styles.suit} dangerouslySetInnerHTML={{__html: `&${props.suit};`}} />
+export const Card = ({chosen, chosenCard, rank, suit, id}) => (
+  <div className={(chosen ? styles.chosenCard : styles.normalCard)} onClick={() => chosenCard(id)}>
+      <span className={className.front(rank, suit)}>
+         <span className={styles.rank}>{rank}</span>
+          <span className={styles.suit} dangerouslySetInnerHTML={{__html: `&${suit};`}} />
       </span>
     </div>
 );
-
-
 
 Card.PropTypes = {
   id: React.PropTypes.number,

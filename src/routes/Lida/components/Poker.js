@@ -1,26 +1,30 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from './styles/cards.css';
-import className from './className.js';
-import Card from './Card.js';
+import styles from 'components/Cards/styles/cards.css';
+import Card from '../containers/CardContainer';
+import CardBack from 'components/Cards/CardBack';
+
 
 export const Poker = (props) =>  {
-  console.log("trexw pokeeer");
-  const _getCards = function(hand) {
-    return hand.cards.map( (card) => (<Card rank={card.rank} suit={card.suit} chosen={card.chosen} id={card.key} chosenCard={() => props.chosenCard(card.key)}/>));
-  };
-
-  const cards = _getCards(props.hand);
+  const cards = props.hand.cards.map((card) => (
+    <Card
+    rank={card.rank}
+    suit={card.suit}
+    chosen={card.chosen}
+    key={card.key}
+    id={card.key}
+    />
+  ));
 
   return <div className={styles.containerClass}>
     <div className={classNames(styles.playingCards, styles.simpleCards)}>
     <ul className={classNames(styles.deck)}>
-       <li><div className={className.back}></div></li>
-       <li><div className={className.back}></div></li>
-       <li><div className={className.back}></div></li>
-       <li><div className={className.back}></div></li>
-       <li><div className={className.back}></div></li>
-       <li><div className={className.back}></div></li>
+       <li><CardBack /></li>
+       <li><CardBack /></li>
+       <li><CardBack /></li>
+       <li><CardBack /></li>
+       <li><CardBack /></li>
+       <li><CardBack /></li>
     </ul>
        <button onClick={props.handleClick}>{ props.game ? 'Shuffle' : 'Deal!'}</button>
         { props.game ?
@@ -34,14 +38,12 @@ export const Poker = (props) =>  {
      </div>
 };
 
-
-
 Poker.PropTypes = {
   hand: React.PropTypes.array,
   game: React.PropTypes.boolean,
   deck: React.PropTypes.array,
+  cardsToDiscard: React.PropTypes.array,
   handleClick: React.PropTypes.func,
-  chosenCard: React.PropTypes.func,
   updateHand: React.PropTypes.func
 };
 

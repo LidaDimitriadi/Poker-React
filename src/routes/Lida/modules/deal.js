@@ -98,7 +98,7 @@ const addCardToChosen = function(chosenCards, hand, id) {
 }
 
 const toggleCardState = function(hand, chosenCards, id) {
-  var index = _.findIndex(hand.cards, (x) => (x.key == id));
+  const index = _.findIndex(hand.cards, (x) => (x.key == id));
   let newHand = hand;
   if(chosenCards.length >= 3) {
     if(hand.cards[index].chosen == false) {
@@ -106,13 +106,11 @@ const toggleCardState = function(hand, chosenCards, id) {
     }
     else {
       newHand.cards[index].chosen = !newHand.cards[index].chosen;
-      console.log(newHand);
       return newHand;
     }
   }
   else {
     newHand.cards[index].chosen = !newHand.cards[index].chosen;
-    console.log(newHand);
     return newHand;
   }
 }

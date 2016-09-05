@@ -1,3 +1,3 @@
-import Poker from './Poker.js'
-
-export default Poker;
+import Card from './Card';
+import CardBack from './CardBack';
+export { Card, CardBack };

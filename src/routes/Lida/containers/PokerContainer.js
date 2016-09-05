@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
-import { handleClick } from '../modules/deal';
-import { updateHand } from '../modules/deal';
-import { chosenCard } from '../modules/deal';
-import Poker from 'components/Cards';
+import { handleClick, updateHand } from '../modules/deal';
+import Poker from '../components/Poker';
 
 
 //====================
@@ -12,13 +10,13 @@ import Poker from 'components/Cards';
 const mapActionCreators = {
   handleClick: () => handleClick(),
   updateHand: () => updateHand(),
-  chosenCard: (id) => chosenCard(id)
 };
 
 const mapStateToProps = (state) => ({
   game: state.game.deal,
   hand: state.game.hand,
   deck: state.game.cards,
+  cardsToDiscard: state.game.chosenCards
 });
 
 export default connect(mapStateToProps, mapActionCreators)(Poker);
