@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { handleClick, updateHand } from '../modules/deal';
+import { handleClick, updateHand } from '../modules/poker';
 import Poker from '../components/Poker';
 
 

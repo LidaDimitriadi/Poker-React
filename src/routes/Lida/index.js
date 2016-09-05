@@ -10,7 +10,7 @@ export default (store) => ({
           dependencies for bundling   */
           //mesa sto CounterContainer fortwnw thn template tou counter
       const Poker = require('./containers/PokerContainer').default
-      const reducer = require('./modules/deal').default
+      const reducer = require('./modules/poker').default
 
       /*  Add the reducer to the store on key 'counter'  */
       //gia na fainetai sto redux
