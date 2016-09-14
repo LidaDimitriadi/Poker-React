@@ -16,17 +16,18 @@ export const Poker = (props) =>  (
        <li><CardBack /></li>
     </ul>
        <button onClick={props.handleClick}>{ props.game ? 'Shuffle' : 'Deal!'}</button>
+       <div  className={ props.getWinner ? styles.visible : styles.hidden}>
+         <b>{ props.result }</b>
+       </div>
         { props.game ?
           <div>
             <Hand hand={props.computerHand} cardsToDiscard={[]} front={props.getWinner ? true : false} />
             <Hand hand={props.playerHand} cardsToDiscard={props.cardsToDiscard} front={true} />
           </div>
         : <span /> }
-        { props.game && !props.getWinner ?
-          <button onClick={ props.evaluateHands }>Evaluate!</button>
-          : <b>{ props.result }</b>
-        }
-        <div>
+        <button onClick={props.evaluateHands} className={ props.game && !props.getWinner ? styles.visible : styles.hidden }>Evaluate!</button>
+
+       </div>
      </div>
 );
 
