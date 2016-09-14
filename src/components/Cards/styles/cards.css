@@ -43,9 +43,18 @@ My styles
   display: inline-flex;
 }
 
+.visible {
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
 /*****************************************************
 Cards.css
 *******************************************************/
+
 
 .playingCards .card {
     display: inline-block;

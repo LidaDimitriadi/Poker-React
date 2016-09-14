@@ -70,3 +70,42 @@ const rating = {
   OnePair: (hand) => hand.hasOfSameRank(2),
   HighCard: (hand) => hand.hasOfSameRank(1) === 5,
 };
+
+export const getCompareStr = (hand) => {
+  switch (hand.rate) {
+    case 'RoyalFlush' :
+      return 'J' + hand.suits[0];
+      break;
+    case 'StraightFlush' :
+      return 'I' + String.fromCharCode(65 + hand.cards[0].weight)
+                 + String.fromCharCode(65 + hand.cards[0].suit);
+      break;
+    case 'FourOfAKind' :
+      return 'H' + String.fromCharCode(65 + hand.rankTimes[4][0][0].weight);
+      break;
+    case 'FullHouse' :
+      return 'G' + String.fromCharCode(65 + hand.rankTimes[3][0][0].weight);
+      break;
+    case 'Flush' :
+      return 'F' + hand.cards[0].suit;
+      break;
+    case 'Straight' :
+      return 'E' + String.fromCharCode(65 + hand.cards[0].weight)
+      break;
+    case 'ThreeOfAKind' :
+      return 'D' + String.fromCharCode(65 + hand.rankTimes[3][0][0].weight);
+      break;
+    case 'TwoPair' :
+      return 'C' + String.fromCharCode(65 + hand.rankTimes[2][0][0].weight);
+      break;
+    case 'OnePair' :
+      return 'B' + String.fromCharCode(65 + hand.rankTimes[2][0][0].weight);
+      break;
+    case 'HighCard' :
+    return 'A' + String.fromCharCode(65 + hand.cards[0].weight)
+               + hand.cards[0].suit;
+      break;
+    default:
+      return "";
+  }
+}

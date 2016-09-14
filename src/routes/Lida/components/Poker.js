@@ -1,22 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
 import styles from 'components/Cards/styles/cards.css';
-import Card from '../containers/CardContainer';
+import Hand from '../containers/HandContainer';
 import CardBack from 'components/Cards/CardBack';
 
-
-export const Poker = (props) =>  {
-  const cards = props.hand.cards.map((card) => (
-    <Card
-    rank={card.rank}
-    suit={card.suit}
-    chosen={card.chosen}
-    key={card.key}
-    id={card.key}
-    />
-  ));
-
-  return <div className={styles.containerClass}>
+export const Poker = (props) =>  (
+  <div className={styles.containerClass}>
     <div className={classNames(styles.playingCards, styles.simpleCards)}>
     <ul className={classNames(styles.deck)}>
        <li><CardBack /></li>
@@ -28,23 +17,29 @@ export const Poker = (props) =>  {
     </ul>
        <button onClick={props.handleClick}>{ props.game ? 'Shuffle' : 'Deal!'}</button>
         { props.game ?
-        <div className={classNames(styles.playingCards, styles.simpleCards), styles.handClass}>
-          {cards}
-          <div className={styles.ratingClass}>Your rating is: {props.hand.rate} </div>
-          <button onClick={props.updateHand}>Update Hand</button>
-        </div>
+          <div>
+            <Hand hand={props.computerHand} cardsToDiscard={[]} front={props.getWinner ? true : false} />
+            <Hand hand={props.playerHand} cardsToDiscard={props.cardsToDiscard} front={true} />
+          </div>
         : <span /> }
-       </div>
+        { props.game && !props.getWinner ?
+          <button onClick={ props.evaluateHands }>Evaluate!</button>
+          : <b>{ props.result }</b>
+        }
+        <div>
      </div>
-};
+);
 
 Poker.PropTypes = {
-  hand: React.PropTypes.array,
+  playerHand: React.PropTypes.array,
+  computerHand: React.PropTypes.array,
   game: React.PropTypes.boolean,
+  getWinner: React.PropTypes.boolean,
   deck: React.PropTypes.array,
   cardsToDiscard: React.PropTypes.array,
+  result: React.PropTypes.string,
   handleClick: React.PropTypes.func,
-  updateHand: React.PropTypes.func
+  evaluateHands: React.PropTypes.func
 };
 
 export default Poker;

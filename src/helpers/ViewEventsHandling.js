@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { PokerHand } from 'model/PokerEngine';
+import { PokerHand, getCompareStr } from 'model/PokerEngine';
 
 
 export const deal = function(num, hand, deck, chosenCards) {
@@ -45,4 +45,18 @@ export const toggleCardState = function(hand, chosenCards, id) {
     newHand.cards[index].chosen = !newHand.cards[index].chosen;
     return newHand;
   }
+}
+
+
+//TODO AI update
+export const autoUpdate = function(hand) {
+  return hand;
+}
+
+export const evaluate = function(playerHand, computerHand) {
+  let playerResult = getCompareStr(playerHand);
+  let computerResult = getCompareStr(computerHand);
+  console.log(playerResult);
+  console.log(computerResult);
+  return playerResult > computerResult ? "YOU WIN!!" : "YOU LOSE!!";
 }

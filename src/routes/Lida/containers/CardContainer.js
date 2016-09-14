@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { chosenCard } from '../modules/poker';
-import { Card } from 'components/Cards';
+import { Card } from 'components/Cards/Card';
 
 
 //====================
