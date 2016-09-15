@@ -1,4 +1,4 @@
-import { deal, addCardToChosen, toggleCardState, autoUpdate, evaluate } from 'helpers/ViewEventsHandling';
+import { deal, addCardToChosen, toggleCardState, autoUpdate, evaluate, autoCardsToUpdate } from 'helpers/ViewEventsHandling';
 import { DeckInitialization } from 'model/PokerEngine';
 
 //ACTIONS
@@ -41,6 +41,11 @@ export const actions = {
   evaluateHands
 }
 
+export const slicing = function(length, deck) {
+  console.log("slicing " + length);
+  return deck.slice(length, deck.length);
+};
+
 const ACTION_HANDLERS = {
   [DEAL]: (state, action) => {
                       return {
@@ -53,20 +58,20 @@ const ACTION_HANDLERS = {
                         getWinner: false
                       };
                     },
-  [UPDATE_HAND]: (state, action) => {
-                          return {
-                            ...state,
-                            chosenCards: [],
-                            playerHand: deal(state.chosenCards.length, state.playerHand, state.deck, state.chosenCards),
-                            computerHand: autoUpdate(state.computerHand),
-                            deck: state.deck.slice(state.chosenCards.length, state.deck.length)
-                          };
-                        },
+[UPDATE_HAND]: (state, action) => {
+                        return {
+                          ...state,
+                          chosenCards: [],
+                          playerHand: deal(state.chosenCards.length, state.playerHand, state.deck, state.chosenCards),
+                          computerHand: autoUpdate(state.computerHand, slicing(state.chosenCards.length, state.deck)),
+                          deck: slicing(state.chosenCards.length + autoCardsToUpdate(state.computerHand), state.deck)
+                        };
+                      },
   [CHOSEN_CARD]: (state, action) => {
                               return {
                                 ...state,
-                                chosenCards: addCardToChosen(state.chosenCards, state.playerHand, action.payload),
-                                playerHand: toggleCardState(state.playerHand, state.chosenCards, action.payload),
+                                chosenCards: !state.getWinner ? addCardToChosen(state.chosenCards, state.playerHand, action.payload) : chosenCards,
+                                playerHand: !state.getWinner ? toggleCardState(state.playerHand, state.chosenCards, action.payload) : playerHand,
                               };
                         },
   [GET_WINNER]: (state, action) => {

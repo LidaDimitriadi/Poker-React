@@ -49,8 +49,51 @@ export const toggleCardState = function(hand, chosenCards, id) {
 
 
 //TODO AI update
-export const autoUpdate = function(hand) {
+export const autoUpdate = function(hand, deck) {
+  let cardsToDiscard = [];
+  let pairRank = [];
+  switch (hand.rate) {
+    case 'RoyalFlush' || 'StraightFlush' || 'FourOfAKind' || 'FullHouse' || 'Flush' || 'Straight':
+      return hand;
+      break;
+    case 'ThreeOfAKind':
+      pairRank.push(hand.rankTimes[3][0][0].rank);
+      cardsToDiscard =  _.filter(hand.cards, x => (x.rank != pairRank));
+      return deal(cardsToDiscard.length, hand, deck, cardsToDiscard);;
+      break;
+    case 'TwoPair':
+      pairRank.push(hand.rankTimes[2][0][0].rank);
+      pairRank.push(hand.rankTimes[2][1][0].rank);
+      cardsToDiscard =  _.filter(hand.cards, x => (x.rank != pairRank[0]
+                                                    && x.rank != pairRank[1]));
+      return deal(cardsToDiscard.length, hand, deck, cardsToDiscard);
+      break;
+    case 'OnePair':
+        pairRank.push(hand.rankTimes[2][0][0].rank);
+        cardsToDiscard =  _.filter(hand.cards, x => (x.rank != pairRank));
+        return deal(cardsToDiscard.length, hand, deck, cardsToDiscard);
+        break;
+    case 'HighCard':
+      cardsToDiscard = [hand.cards[2], hand.cards[3], hand.cards[4]];
+      return deal(3, hand, deck, cardsToDiscard);
+      break;
+    default:
+      return hand;
+  }
   return hand;
+}
+
+export const autoCardsToUpdate = function(hand) {
+  if(hand.rate == 'HighCard' || hand.rate == 'OnePair') {
+    return 3;
+  }
+  else if(hand.rate == 'ThreeOfAKind') {
+    return 2;
+  }
+  else if(hand.rate == 'TwoPair') {
+    return 1;
+  }
+  return 0;
 }
 
 export const evaluate = function(playerHand, computerHand) {
