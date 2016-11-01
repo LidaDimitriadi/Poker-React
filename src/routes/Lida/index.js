@@ -9,7 +9,7 @@ export default (store) => ({
       /*  Webpack - use require callback to define
           dependencies for bundling   */
           //mesa sto CounterContainer fortwnw thn template tou counter
-      const Poker = require('./containers/PokerContainer').default
+      const StartPage = require('./containers/StartPageContainer').default
       const reducer = require('./modules/poker').default
 
       /*  Add the reducer to the store on key 'counter'  */
@@ -17,7 +17,7 @@ export default (store) => ({
       injectReducer(store, { key: 'game', reducer })
 
       /*  Return getComponent   */
-      cb(null, Poker)
+      cb(null, StartPage)
 
     /* Webpack named bundle   */
   }, 'game')

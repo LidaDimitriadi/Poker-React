@@ -1,17 +1,39 @@
-import { deal, addCardToChosen, toggleCardState, autoUpdate, evaluate, autoCardsToUpdate } from 'helpers/ViewEventsHandling';
+import { dealToAllPlayers, addCardToChosen, toggleCardState, playersInitialization, updateAllPlayers, evaluate, updateDeck } from 'helpers/ViewEventsHandling';
 import { DeckInitialization } from 'model/PokerEngine';
 
 //ACTIONS
 export const DEAL = 'DEAL';
+export const START_GAME = 'START_GAME';
+export const INVALID_FORM = 'INVALID_FORM';
+export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const UPDATE_HAND = 'UPDATE_HAND';
 export const CHOSEN_CARD = 'CHOSEN_CARD';
 export const GET_WINNER = 'GET_WINNER';
 
 
 //ACTION CREATORS
-export function handleClick(){
+export function handleClick() {
   return {
     type: DEAL
+  }
+};
+
+export function invalidForm() {
+  return {
+    type: INVALID_FORM
+  }
+}
+
+export function submit(values) {
+  return {
+    type: SUBMIT_FORM,
+    payload: values
+  }
+};
+
+export function startGame() {
+  return {
+    type: START_GAME
   }
 };
 
@@ -35,49 +57,68 @@ export function evaluateHands() {
 };
 
 export const actions = {
+  startGame,
+  submit,
+  invalidForm,
   handleClick,
   updateHand,
   chosenCard,
   evaluateHands
 }
 
-export const slicing = function(length, deck) {
-  console.log("slicing " + length);
-  return deck.slice(length, deck.length);
-};
+export const deckSlice = function(deck, number) {
+  var cardsToSlice = 5*number;
+  return deck.slice(cardsToSlice, deck.length);
+}
 
 const ACTION_HANDLERS = {
+  [START_GAME]: (state, action) => {
+                        return {
+                          ...state,
+                          started: !state.started
+                        };
+                      },
+  [INVALID_FORM]: (state, action) => {
+                        return {
+                          ...state,
+                          validForm: !state.validForm
+                        };
+                      },
+  [SUBMIT_FORM]: (state, action) => {
+                        return {
+                          ...state,
+                          players: playersInitialization(state.players, action.payload)
+                        };
+                      },
   [DEAL]: (state, action) => {
                       return {
                         ...state,
                         deal: !state.deal,
                         chosenCards: [],
-                        playerHand: !state.deal ? deal(5, null, state.deck, state.chosenCards) : { cards: []},
-                        computerHand: !state.deal ? deal(5, null, state.deck.slice(5, state.deck.length), state.chosenCards) : { cards: []},
-                        deck: state.deal ? state.deck.slice(10, state.deck.length) : DeckInitialization(),
+                        players: !state.deal ? dealToAllPlayers(state.players, state.deck) : state.players,
+                        deck: !state.deal ? deckSlice(state.deck, state.players.length) : DeckInitialization(),
                         getWinner: false
                       };
                     },
-[UPDATE_HAND]: (state, action) => {
+  [UPDATE_HAND]: (state, action) => {
                         return {
                           ...state,
                           chosenCards: [],
-                          playerHand: deal(state.chosenCards.length, state.playerHand, state.deck, state.chosenCards),
-                          computerHand: autoUpdate(state.computerHand, slicing(state.chosenCards.length, state.deck)),
-                          deck: slicing(state.chosenCards.length + autoCardsToUpdate(state.computerHand), state.deck)
+                          players: updateAllPlayers(state.players, state.deck, state.chosenCards),
+                          deck: updateDeck(state.players, state.deck, state.chosenCards)
                         };
                       },
   [CHOSEN_CARD]: (state, action) => {
                               return {
                                 ...state,
-                                chosenCards: !state.getWinner ? addCardToChosen(state.chosenCards, state.playerHand, action.payload) : chosenCards,
-                                playerHand: !state.getWinner ? toggleCardState(state.playerHand, state.chosenCards, action.payload) : playerHand,
+                                chosenCards: !state.getWinner ? addCardToChosen(state.chosenCards, state.players[0], action.payload) : chosenCards,
+                                players: !state.getWinner ? toggleCardState(state.players, state.chosenCards, action.payload) : players,
                               };
                         },
   [GET_WINNER]: (state, action) => {
                             return {
                               ...state,
-                              result: evaluate(state.playerHand, state.computerHand),
+                              result: evaluate(state.players),
                               getWinner: true
                             };
                           }
@@ -85,10 +126,11 @@ const ACTION_HANDLERS = {
 
 
 const initialState = {
+  started: false,
   deal: false,
+  validForm: true,
   chosenCards: [],
-  playerHand: { cards: []},
-  computerHand: { cards: []},
+  players: [],
   getWinner: false,
   result: '',
   deck: DeckInitialization()

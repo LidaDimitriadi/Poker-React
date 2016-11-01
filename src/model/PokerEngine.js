@@ -25,8 +25,9 @@ class Hand {
 };
 
 export class PokerHand extends Hand {
-  constructor(cards) {
+  constructor(cards, name) {
     super(cards);
+    this.name = name;
     const rate = Object.entries(rating).find(([rate, is]) => is(this));
     [this.rate] = rate;
   }
