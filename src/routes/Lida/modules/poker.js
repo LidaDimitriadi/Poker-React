@@ -98,7 +98,6 @@ const ACTION_HANDLERS = {
                           validForm: true
                         };
                       },
-
   [DEAL]: (state, action) => {
                       return {
                         ...state,

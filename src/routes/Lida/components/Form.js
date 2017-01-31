@@ -47,7 +47,6 @@ class Form extends Component {
           <label htmlFor="Name" className="col-md-2">UserName</label>
           <input name="Name" type="text" placeholder="Username" onChange={ this.handleChange } value={ this.state.Name } className="col-md-4 form-control"/>
         </div>
-        <div className="form-group row">
           <label>Choose number of Opponents!</label>
           <div>
             <label>Number of Opponents</label>
@@ -58,7 +57,6 @@ class Form extends Component {
             </div>
           </div>
           <div className={ !this.props.showValidationMsg ? styles.hidden : styles.visible }>Please submit name and number of players</div>
-        </div>
         <button type="button" className='btn btn-default' onClick={ this.handleSubmit }>Submit</button>
         <Visible isVisible={ this.props.validForm }>
           <button type="button" className={ this.btnClass } onClick={ this.props.startGame } >GO!</button>

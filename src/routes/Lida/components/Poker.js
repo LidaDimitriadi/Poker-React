@@ -13,8 +13,6 @@ export const Poker = (props) =>  {
                                                 i++;
                                                 return <Hand hand={hand} cardsToDiscard={props.cardsToDiscard} front={props.getWinner ? true : false} key={i} width={width}/>
                                               });
-
-  
   return <div className={styles.containerClass}>
     <div className={classNames(styles.playingCards, styles.simpleCards)}>
     <ul className={classNames(styles.deck)}>
