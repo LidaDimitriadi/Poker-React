@@ -26,6 +26,17 @@ My styles
 
 .handClass {
   margin: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.playerStyle {
+  margin: 20px;
+}
+
+.computerStyle {
+  display: flex;
 }
 
 .ratingClass {
@@ -33,6 +44,10 @@ My styles
   font-weight: bold;
   width: inherit;
   margin: 10px;
+}
+
+.ratingWrap {
+  width: 1000px;
 }
 
 .chosenCard {
@@ -50,6 +65,20 @@ My styles
 
 .hidden {
   visibility: hidden;
+}
+
+.horizontalHand {
+  margin-bottom: 20px;
+}
+
+.verticalHand {
+  display: block;
+
+}
+
+.goBtn {
+  margin-top: 40px;
+  display: block;
 }
 
 /*****************************************************
